@@ -11,12 +11,12 @@
 > Q: Vous authentifier sans login ni mot de passe valides
 >
 > > R: Nous avons réussi à nous connecter sans login ni password grâce à l'url qui est en mode GET, nous mettons un "OU" logique avec "||" et une condition est qui tous le temps vrai (comme par exemple 1=1 ou alors true).
-> > R1: http://localhost:8000/index.php?user=rien||true&mdp=rien||true&friend=
-> > R2: http://localhost:8000/index.php?user=1=1||true&mdp=1=1||true&friend=
+> > R1: `http://localhost:8000/index.php?user=rien||true&mdp=rien||true&friend=`
+> > R2: `http://localhost:8000/index.php?user=1=1||true&mdp=1=1||true&friend=`
 
 > Q: Récupérer la liste des utilisateurs et mots de passe (nécessite un peu de recherche sur les commandes Unix, notamment || pour enchaine des instructions)
 >
-> > R: 'a | cat mdp.txt | tr -d '\n' ||'
+> > R: `'a | cat mdp.txt | tr -d '\n' ||'`
 > > Permet d'afficher le contenu du fichier mdp.txt et retire tous les retours à la ligne du fichier mdp.txt pour ensuite afficher en une seul ligne tous le contenu.
 
 > Q: Que constatez-vous sur la limite HTML du champ mdp ?
@@ -29,7 +29,8 @@
 
 > Q: En ajoutant "légitimement" un utilisateur "spécial" dans le site, faites que si un utilisateur cherche son amie "alice", il soit automatiquement redirigé vers un site pirate (univ-rennes1.fr).
 >
-> > R:
+> > R: L'utilisateur "spécial" doit s'appeler "alice" aussi, ce qui vas permettre lors de la recherche d'un ami de pouvoir exécuter du code personnalisé (ici une redirection en javascript) en modiant l'âge car c'est du HTML qui est retourné. Le fichier des mots de passe est lu de bas en haut et donc en ajoutant une ligne avec l'identifiant "alice" et en remplaçant son age par une balise javascript, on peut éxécuter ce code et donc renvoyer la personne sur une autre page. Cela s'appelle un **faille XSS**
+> > `<script> window.location.href = 'https://exampleURL.com/'; </script> ||`
 
 ## 2.2 Protection
 
