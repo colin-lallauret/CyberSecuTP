@@ -10,19 +10,22 @@
 
 > Q: Vous authentifier sans login ni mot de passe valides
 >
-> > R:
+> > R: Nous avons réussi à nous connecter sans login ni password grâce à l'url qui est en mode GET, nous mettons un "OU" logique avec "||" et une condition est qui tous le temps vrai (comme par exemple 1=1 ou alors true).
+> > R1: http://localhost:8000/index.php?user=rien||true&mdp=rien||true&friend=
+> > R2: http://localhost:8000/index.php?user=1=1||true&mdp=1=1||true&friend=
 
 > Q: Récupérer la liste des utilisateurs et mots de passe (nécessite un peu de recherche sur les commandes Unix, notamment || pour enchaine des instructions)
 >
-> > R:
+> > R: 'a | cat mdp.txt | tr -d '\n' ||'
+> > Permet d'afficher le contenu du fichier mdp.txt et retire tous les retours à la ligne du fichier mdp.txt pour ensuite afficher en une seul ligne tous le contenu.
 
 > Q: Que constatez-vous sur la limite HTML du champ mdp ?
 >
-> > R:
+> > R: La limite du champ mdp est de 4 caractères. Cela n'est pas assez les mot de passes seront donc très vulnérable aux attaques par brut force. Un mot de passe court (<4) est forcement un mot de passe faible. Pour avoir un bon mot de passe est long (12+ caractères), unique, et combine lettres, chiffres et symboles sans mots courants ni suites évidentes.
 
 > Q: Le passage des paramètres en POST serait-il plus sécurisé, jusqu'à quel point ?
 >
-> > R:
+> > R: Le passage des paramètres en POST sécuriserait déjà mieux le site web. Il permetterai de caché la visibilité des informations sensibles dans l'URL, ce qui permet déjà réduire les risques de manipulation dans l'URL (type injection..). La méthode POST limite les risques de manipulation dans l'URL mais ne les empêches pas si le serveur n'effectue pas de vérifications strictes, avec l'utilisation d'outils comme cURL ou Burp Suite il est toujours possible de réaliser des manipulation dans l'URL. La méthode POST n'empêche pas non plus les attaques par brut force, les injections SQL et les attaques de type CSRF.
 
 > Q: En ajoutant "légitimement" un utilisateur "spécial" dans le site, faites que si un utilisateur cherche son amie "alice", il soit automatiquement redirigé vers un site pirate (univ-rennes1.fr).
 >
