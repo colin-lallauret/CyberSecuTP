@@ -29,18 +29,17 @@
 
 > Q: En ajoutant "légitimement" un utilisateur "spécial" dans le site, faites que si un utilisateur cherche son amie "alice", il soit automatiquement redirigé vers un site pirate (univ-rennes1.fr).
 >
-> > R: L'utilisateur "spécial" doit s'appeler "alice" aussi, ce qui vas permettre lors de la recherche d'un ami de pouvoir exécuter du code personnalisé (ici une redirection en javascript) en modiant l'âge car c'est du HTML qui est retourné. Le fichier des mots de passe est lu de bas en haut et donc en ajoutant une ligne avec l'identifiant "alice" et en remplaçant son age par une balise javascript, on peut éxécuter ce code et donc renvoyer la personne sur une autre page. Cela s'appelle un **faille XSS**
-> > `<script> window.location.href = 'https://exampleURL.com/'; </script> ||`
+> > R: L'utilisateur "spécial" doit s'appeler "alice" aussi, ce qui vas permettre lors de la recherche d'un ami de pouvoir exécuter du code personnalisé (ici une redirection en javascript) en modiant l'âge car c'est du HTML qui est retourné. Le fichier des mots de passe est lu de bas en haut et donc en ajoutant une ligne avec l'identifiant "alice" et en remplaçant son age par une balise javascript, on peut éxécuter ce code et donc renvoyer la personne sur une autre page. Cela s'appelle un **faille XSS** > > `<script> window.location.href = 'https://exampleURL.com/'; </script> ||`
 
 ## 2.2 Protection
 
 > Q: Protégez les mots de passe en les hachant lorsqu'ils sont insérés dans le fichier utilisateur
 >
-> > R:
+> > R: Pour hashé les mot de passes lorsqu'ils sont insérés dans le fichier utilisateur, il suffit d'aller a la ligne 277 de index.php et d'ajouté md5() `$mdpADD = md5($_GET["mdpADD"]);`. Ensuite une fois le mot de passe hashé, il faut pouvoir comparer le hash avec le mot de passe que l'utilisateur vient d'entrer et pour faire cela il faut hashé le mot de passe entrer dans le champ pour ensuite le comparer au hash qui a été stocker. Pour réaliser cela il suffit d'aller à la ligne 198 et d'écrire : `$mdp = md5(_$GET["mdp"]);`
 
 > Q: Faites un programme pour retrouver un mot de passe valide par force brute
 >
-> > R:
+> > R: Pour cela on va crée un programme en python qui testera toutes les possibilités afin de retrouver le mot de passe correspondant. On définira le mot de passe à trouver au tout début du programme ainsi qu'une variable contenant les caractères de a à z, de 0 à 9 et de A à Z.
 
 > Q: Comment éviter de recalculer toutes les combinaisons pour chaque nouveau hash
 >

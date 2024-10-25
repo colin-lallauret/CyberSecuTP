@@ -273,9 +273,9 @@
 
 			if(isset($_GET["userADD"]) && isset($_GET["mdpADD"]) && isset($_GET["ageADD"])){
 				$userADD = $_GET["userADD"];
-				$ageADD = $_GET["ageADD"];
-				$mdpADD = $_GET["mdpADD"];
-			
+        $ageADD = $_GET["ageADD"];
+        $mdpADD = md5($_GET["mdpADD"]);
+        
 				/* Test the entry */
 				$req = "echo '".$userADD."\t".$ageADD."\t".$mdpADD."' >> mdp.txt";
 				$res = passthru($req); // Stupid method
