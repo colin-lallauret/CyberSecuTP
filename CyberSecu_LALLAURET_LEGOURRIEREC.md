@@ -66,7 +66,7 @@
 > **Q: Mettez en place un micro site internet (un simple site qui dit "bonjour" suffira) avec un serveur apache2 ou nodejs (au choix).**
 >
 > > R: 
-> > ```javascript
+> > ```js
 > > import http from 'http';
 > > 
 > > const server = http.createServer((_, res) => {
@@ -99,4 +99,28 @@
 
 > **Q:Sécurisez votre site pour changer le protocole de HTTP à HTTPS**
 >
-> > R:
+> > R: Voici le code JS permettant l'utilisation du HTTPS sur un serveur NodeJS en local
+> > ```js
+> > import https from 'https';
+> > import fs from 'fs';
+> > 
+> > const options = {
+> >   key: fs.readFileSync('./selfsigned.key'),
+> >   cert: fs.readFileSync('./selfsigned.crt')
+> > };
+> > 
+> > https.createServer(options, (_, res) => {
+> >   res.writeHead(200);
+> >   res.end('home page\n');
+> > }).listen(8080, () => {
+> >   console.log('Server is running at https://localhost:8080');
+> > });
+> > ```
+> > 
+> > Ici on utilise https et fs qui permettra de lire la clé et le certificat qui peuvent être généré grâce à cette commande openssl :
+> > ```bash
+> > sudo openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout selfsigned.key -out selfsigned.crt
+> > ```
+> > Cependant, une erreur va s'afficher comme quoi le site est "Non sécurisé", c'est tout à fait normal, car le certificat est auto-signé, et les navigateurs actuels détectent ce problème, cependant, on peut bien constater que dans l'url on utilise https.
+
+

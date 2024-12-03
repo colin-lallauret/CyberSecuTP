@@ -1,13 +1,14 @@
-const fs = require('node:fs');
-const https = require('node:https');
-
+import https from 'https';
+import fs from 'fs';
 
 const options = {
-    key: fs.readFileSync('/step3/agent2-key.pem'),
-    cert: fs.readFileSync('/step3/agent2-cert.pem'),
-  };
+  key: fs.readFileSync('./selfsigned.key'),
+  cert: fs.readFileSync('./selfsigned.crt')
+};
 
-  https.createServer(options, (req, res) => {
-    res.writeHead(200);
-    res.end('hello world\n');
-  }).listen(8000); 
+https.createServer(options, (_, res) => {
+  res.writeHead(200);
+  res.end('home page\n');
+}).listen(8080, () => {
+  console.log('Server is running at https://localhost:8080');
+});
