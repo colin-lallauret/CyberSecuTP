@@ -47,7 +47,9 @@
 
 > **Q: Utilisez les fonctions de protection de mots de passe de PhP (password_hash(), password_verify()) pour hasher le mot de passe.**
 >
-> R: 
+> R: Voir le code indexHash.php 
+> - Ligne 198 : password_verify()
+> - Ligne 277 : password_hash()
 
 > **Q: Quelles sont les différences par rapport à l'utilisation uniquement de md5 ?**
 >
