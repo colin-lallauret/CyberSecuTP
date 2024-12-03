@@ -47,11 +47,13 @@
 
 > **Q: Utilisez les fonctions de protection de mots de passe de PhP (password_hash(), password_verify()) pour hasher le mot de passe.**
 >
-> R:
+> R: 
 
 > **Q: Quelles sont les différences par rapport à l'utilisation uniquement de md5 ?**
 >
-> R:
+> R: MD5 n'est plus une norme de sécurité, on peut facilement faire le sens contraire et retrouver le mot de passe entré par l'utilisateur.
+> L'utilisation de password_hash() permet de hasher le mot de passe de façon irréversible grâce à l'algorithme argon2 et ajoute automatiquement un salt.
+> Quant à `password_verify()`, elle hash le mot de passe et compare ce hash avec celui déjà enregistré.
 
 > **Q: Pouvez-vous encore attaquer simplement le mot passe par force brute ?**
 >
