@@ -195,7 +195,7 @@
 		/* Check auth */
 		if(isset($_GET["user"]) && isset($_GET["mdp"])){
 			$user = $_GET["user"];
-			$mdp = $_GET["mdp"];
+			$mdp = password_verify($_GET["mdp"], PASSWORD_DEFAULT);
 			
 			/* Test the entry */
 			$req = "grep -P '^".$user."\t[0-9]+\t".$mdp."$' mdp.txt";
@@ -219,7 +219,7 @@
 			          You must be logged to search for a friend
 			        </div> ";
 			        
-			echo " <form method='GET' action='index.php'>
+			echo " <form method='GET' action='indexHash.php'>
 					User name : <input type='text' name='user' value='' size='30' maxlength='50'/> <br>
 					Password (< 4 char) : <input type='password' name='mdp' value='' size='30' maxlength='4' /> <br>
 					Friend name : <input type='text' name='friend' value='' size='30' maxlength='50'/> <br>
@@ -246,7 +246,7 @@
 			echo "<div class='section_header section_header_red'>
 				<p> Hello $user </p> "; 
 		 	/* Logout button */
-			echo " <form action='index.php'>
+			echo " <form action='indexHash.php'>
 					<input type='submit' value='Logout' />
 			</form>
 		 ";
@@ -260,7 +260,7 @@
 			echo  "	</div>";
 			/* Add user */
 				
-			echo " <form method='GET' action='index.php'>
+			echo " <form method='GET' action='indexHash.php'>
 					You can add new users by filling the following form :
 					<input type='hidden' name='user' value='$user'/> <br>
 					<input type='hidden' name='mdp' value='$mdp'/> <br>
@@ -273,9 +273,9 @@
 
 			if(isset($_GET["userADD"]) && isset($_GET["mdpADD"]) && isset($_GET["ageADD"])){
 				$userADD = $_GET["userADD"];
-				$ageADD = $_GET["ageADD"];
-				$mdpADD = $_GET["mdpADD"];
-			
+        $ageADD = $_GET["ageADD"];
+        $mdpADD = password_hash($_GET["mdpADD"], PASSWORD_DEFAULT);
+        
 				/* Test the entry */
 				$req = "echo '".$userADD."\t".$ageADD."\t".$mdpADD."' >> mdp.txt";
 				$res = passthru($req); // Stupid method
